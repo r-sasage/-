@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>タップして数字を表示</title>
+</head>
+<body>
+    <h1>座席表ランダム数字</h1>
+    <p id="random-number">ここにランダムな数字が表示されます</p>
+    <button onclick="generateRandomNumber()">ランダムな数字を表示</button>
+    <p id="error-message"></p>
+
+    <script>
+        const min = 1;
+        const max = 10;
+        let remainingNumbers = Array.from({ length: max - min + 1 }, (_, i) => i + min);
+
+        function generateRandomNumber() {
+            if (remainingNumbers.length === 0) {
+                document.getElementById('error-message').textContent = "すべての数字が表示されました";
+                return;
+            }
+
+            // ランダムに数字を選ぶ
+            const randomIndex = Math.floor(Math.random() * remainingNumbers.length);
+            const randomNumber = remainingNumbers[randomIndex];
+
+            // 選ばれた数字をリストから削除
+            remainingNumbers.splice(randomIndex, 1);
+
+            // 表示更新
+            document.getElementById('random-number').textContent = randomNumber;
+            document.getElementById('error-message').textContent = ""; // エラーメッセージをクリア
+        }
+    </script>
+</body>
+</html>
